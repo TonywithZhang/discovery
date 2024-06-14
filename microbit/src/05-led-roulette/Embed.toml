@@ -1,5 +1,5 @@
 [default.general]
-# chip = "nrf52833_xxAA" # uncomment this line for micro:bit V2
+chip = "nrf52833_xxAA" # uncomment this line for micro:bit V2
 # chip = "nrf51822_xxAA" # uncomment this line for micro:bit V1
 
 [default.reset]
@@ -10,3 +10,8 @@ enabled = false
 
 [default.gdb]
 enabled = true
+
+[default.probe]
+protocol = "Swd"
+usb_pid = "0204"
+usb_vid = "0d28"
