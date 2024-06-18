@@ -3,31 +3,20 @@
 #![no_std]
 
 use cortex_m_rt::entry;
-use microbit::board::Board;
-use microbit::display::blocking::Display;
-use microbit::hal::prelude::*;
-use microbit::hal::Timer;
+use microbit::{
+    board::Board,
+    hal::{prelude::*, timer::Timer},
+};
 use panic_halt as _;
 use rtt_target::rtt_init_print;
 
 #[entry]
 fn main() -> ! {
     rtt_init_print!();
-    let board = Board::take().unwrap();
-    let mut timer = Timer::new(board.TIMER0);
-    let mut display = Display::new(board.display_pins);
-    let heart = [
-        [0, 1, 0, 1, 0],
-        [1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1],
-        [0, 1, 1, 1, 0],
-        [0, 0, 1, 0, 0],
-    ];
+    let mut board = Board::take().unwrap();
 
-    loop {
-        // Show heart for 1000ms
-        display.show(&mut timer, heart, 1000);
-        display.clear();
-        timer.delay_ms(1000_u32);
-    }
+    board.display_pins.col1.set_low().unwrap();
+    board.display_pins.row1.set_high().unwrap();
+
+    loop {}
 }
